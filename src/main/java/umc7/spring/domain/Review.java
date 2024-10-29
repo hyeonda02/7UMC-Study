@@ -16,4 +16,16 @@ public class Review extends BaseEntity {
     private String content;
     private Float score;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @OneToOne
+    @JoinColumn(name="store_review_id")
+    private StoreReview storeReview;
+
 }

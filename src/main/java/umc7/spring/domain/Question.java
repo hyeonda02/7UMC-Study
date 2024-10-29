@@ -15,6 +15,10 @@ public class Question extends BaseEntity{
     private Long id;
     private String content;
     private String title;
-    @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 }
