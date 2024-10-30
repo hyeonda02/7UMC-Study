@@ -13,8 +13,13 @@ public class Question extends BaseEntity{
     @Column(name="question_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 300)
     private String content;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean status;
 
