@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+.DS_Store
+
+
+src/main/generated/umc7/spring/domain/Q*
+src/main/generated/umc7/spring/domain/common/Q*
+src/main/generated/umc7/spring/domain/mappings/Q*
+
