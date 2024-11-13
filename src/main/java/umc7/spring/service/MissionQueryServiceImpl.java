@@ -29,4 +29,12 @@ public class MissionQueryServiceImpl implements MissionQueryService {
         filterdMission.forEach(mission -> System.out.println("Mission : "+mission));
         return filterdMission.getContent();
     }
+
+    @Override
+    public List<Mission> findMissionsByMemberIdAndRegion(Long memerId, Long regionId) {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("createdAt").descending());
+        Page<Mission> filteredMission = missionRepository.findByMemberWithRegion(memerId,regionId,pageable);
+        filteredMission.forEach(mission -> System.out.println("Mission : " + mission));
+        return filteredMission.getContent();
+    }
 }

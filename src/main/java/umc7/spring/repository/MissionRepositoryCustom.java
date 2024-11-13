@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MissionRepositoryCustom {
 
-
     Page<Mission> findByMemberWithCompleteMission(Long memberId, Boolean status, Pageable pageable);
+    Page<Mission> findByMemberWithRegion(Long memberId, Long regionId ,Pageable pageable);
+
 }

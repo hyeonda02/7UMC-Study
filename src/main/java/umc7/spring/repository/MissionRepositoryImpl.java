@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import umc7.spring.domain.Mission;
 import umc7.spring.domain.QMission;
+import umc7.spring.domain.QStore;
 import umc7.spring.domain.mappings.QMissionComplete;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public class MissionRepositoryImpl implements MissionRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
     private final QMission mission = QMission.mission;
+    private final QStore store = QStore.store;
     private final QMissionComplete missionComplete = QMissionComplete.missionComplete;
     @Override
     public Page<Mission> findByMemberWithCompleteMission(Long memberId, Boolean status, Pageable pageable) {
@@ -41,5 +43,34 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom{
                 .fetchCount();
 
         return new PageImpl<>(missions, pageable, total);
+    }
+
+    @Override
+    public Page<Mission> findByMemberWithRegion(Long memberId, Long regionId, Pageable pageable) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(store.region.id.eq(regionId));
+
+        builder.and(missionComplete.status.eq(true));
+        builder.and(missionComplete.member.id.eq(memberId));
+        builder.and(store.missionList.contains(mission));
+
+        List<Mission> missions = jpaQueryFactory
+                .selectFrom(mission)
+                .join(store.missionList,mission)
+                .leftJoin(mission.missionCompleteList,missionComplete)
+                .where(builder)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        long total = jpaQueryFactory
+                .selectFrom(mission)
+                .join(store.missionList, mission)
+                .leftJoin(mission.missionCompleteList, missionComplete)
+                .where(builder)
+                .fetchCount();
+
+        return new PageImpl<>(missions, pageable, total);
+
     }
 }
