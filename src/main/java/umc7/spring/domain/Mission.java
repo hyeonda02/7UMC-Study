@@ -1,9 +1,7 @@
 package umc7.spring.domain;
 import jakarta.persistence.*;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 import umc7.spring.domain.common.BaseEntity;
-import umc7.spring.domain.mappings.MemberPrefer;
 import umc7.spring.domain.mappings.MissionComplete;
 
 import java.time.LocalDate;

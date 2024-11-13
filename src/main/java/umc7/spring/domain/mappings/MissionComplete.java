@@ -19,6 +19,8 @@ public class MissionComplete {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private Boolean status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
