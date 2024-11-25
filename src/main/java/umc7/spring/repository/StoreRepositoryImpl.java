@@ -6,13 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import umc7.spring.domain.QStore;
 import umc7.spring.domain.Store;
+import umc7.spring.repository.StoreRepositoryCustom;
 
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class StoreRepositoryImpl implements StoreRepositoryCustom{
+public class StoreRepositoryImpl implements StoreRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
     private final QStore store = QStore.store;
     @Override

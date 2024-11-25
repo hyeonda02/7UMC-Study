@@ -1,4 +1,6 @@
 package umc7.spring.repository;
 
-public class MemberRepositoryImpl implements MemberRepositoryCustom{
+import umc7.spring.repository.MemberRepositoryCustom;
+
+public class MemberRepositoryImpl implements MemberRepositoryCustom {
 }

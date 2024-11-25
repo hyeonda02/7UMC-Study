@@ -14,7 +14,7 @@ import umc7.spring.repository.StoreRepository;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ReviewQueryServiceImpl implements ReviewQueryService{
+public class ReviewQueryServiceImpl implements ReviewQueryService {
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
 
