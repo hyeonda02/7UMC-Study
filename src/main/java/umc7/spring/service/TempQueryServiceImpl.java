@@ -1,4 +1,4 @@
-package umc7.spring.service.TempService;
+package umc7.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,6 @@ import umc7.spring.apiPayload.code.status.ErrorStatus;
 import umc7.spring.apiPayload.exception.handler.TempHandler;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class TempQueryServiceImpl implements TempQueryService{

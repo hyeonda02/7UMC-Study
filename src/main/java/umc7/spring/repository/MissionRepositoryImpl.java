@@ -11,12 +11,13 @@ import umc7.spring.domain.Mission;
 import umc7.spring.domain.QMission;
 import umc7.spring.domain.QStore;
 import umc7.spring.domain.mappings.QMissionComplete;
+import umc7.spring.repository.MissionRepositoryCustom;
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MissionRepositoryImpl implements MissionRepositoryCustom{
+public class MissionRepositoryImpl implements MissionRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
     private final QMission mission = QMission.mission;
     private final QStore store = QStore.store;

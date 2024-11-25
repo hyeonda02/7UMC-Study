@@ -22,4 +22,8 @@ public class MemberPrefer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 }

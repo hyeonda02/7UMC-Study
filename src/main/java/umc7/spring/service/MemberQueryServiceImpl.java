@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MemberQueryServiceImpl implements MemberQueryService{
+public class MemberQueryServiceImpl implements MemberQueryService {
     private final MemberRepository memberRepository;
     @Override
     public Optional<Member> findMember(Long memberId) {
