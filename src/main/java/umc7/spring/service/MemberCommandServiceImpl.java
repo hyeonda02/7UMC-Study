@@ -10,7 +10,7 @@ import umc7.spring.converter.MemberPreferConverter;
 import umc7.spring.domain.Category;
 import umc7.spring.domain.Member;
 import umc7.spring.domain.mappings.MemberPrefer;
-import umc7.spring.dto.MemberRequestDto;
+import umc7.spring.dto.MemberReqDto;
 import umc7.spring.repository.CategoryRepository;
 import umc7.spring.repository.MemberRepository;
 
@@ -25,7 +25,7 @@ public class MemberCommandServiceImpl implements MemberCommandService{
     private final CategoryRepository categoryRepository;
     @Override
     @Transactional
-    public Member signUp(MemberRequestDto.JoinDto request) {
+    public Member signUp(MemberReqDto request) {
         Member newMember = MemberConverter.toMember(request);
         List<Category> categoryList = request.getPreferCategory().stream()
                 .map(category->{

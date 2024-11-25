@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import umc7.spring.apiPayload.ApiResponse;
 import umc7.spring.domain.response.MemberResponse;
-import umc7.spring.dto.MemberRequestDto;
+import umc7.spring.dto.MemberReqDto;
 import umc7.spring.service.MemberCommandService;
 
 @RestController
@@ -24,7 +24,7 @@ public class MemberRestController {
     )
     @PostMapping("/signup")
     public ApiResponse<MemberResponse> signup(
-            @RequestBody @Valid MemberRequestDto.JoinDto request) {
+            @RequestBody @Valid MemberReqDto request) {
         return ApiResponse.onSuccess(new MemberResponse(memberCommandService.signUp(request)));
     }
 

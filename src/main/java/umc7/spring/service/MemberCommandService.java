@@ -1,8 +1,8 @@
 package umc7.spring.service;
 
 import umc7.spring.domain.Member;
-import umc7.spring.dto.MemberRequestDto;
+import umc7.spring.dto.MemberReqDto;
 
 public interface MemberCommandService {
-    Member signUp(MemberRequestDto.JoinDto request);
+    Member signUp(MemberReqDto request);
 }
