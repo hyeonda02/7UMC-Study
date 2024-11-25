@@ -33,6 +33,7 @@ public class Store extends BaseEntity {
     private List<Review> reviewList = new ArrayList<>();
 
 
+
     @Override
     public String toString() {
         return "Store{" +
