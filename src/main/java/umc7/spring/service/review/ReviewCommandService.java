@@ -1,4 +1,4 @@
-package umc7.spring.service;
+package umc7.spring.service.review;
 
 import umc7.spring.domain.Review;
 import umc7.spring.dto.ReviewReqDto;

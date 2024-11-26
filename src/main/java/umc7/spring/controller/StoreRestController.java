@@ -2,16 +2,18 @@ package umc7.spring.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc7.spring.apiPayload.ApiResponse;
-import umc7.spring.domain.response.ReviewResponse;
+import umc7.spring.controller.response.ReviewResponse;
 import umc7.spring.dto.ReviewReqDto;
-import umc7.spring.service.ReviewCommandService;
+import umc7.spring.service.review.ReviewCommandService;
 import umc7.spring.validation.annotation.ExistStore;
 
+@Tag(name="Store",description = "상점 관련 API")
 @Validated
 @RestController
 @RequestMapping("/stores")

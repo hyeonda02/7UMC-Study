@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc7.spring.apiPayload.code.status.ErrorStatus;
-import umc7.spring.service.CategoryQueryService;
+import umc7.spring.service.category.CategoryQueryService;
 import umc7.spring.validation.annotation.ExistCategories;
 
 import java.util.List;
