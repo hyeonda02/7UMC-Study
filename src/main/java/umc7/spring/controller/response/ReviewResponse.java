@@ -1,4 +1,4 @@
-package umc7.spring.domain.response;
+package umc7.spring.controller.response;
 
 import lombok.*;
 import umc7.spring.domain.Review;

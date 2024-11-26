@@ -1,4 +1,4 @@
-package umc7.spring.service;
+package umc7.spring.service.member;
 
 import umc7.spring.domain.Member;
 import umc7.spring.dto.MemberReqDto;
