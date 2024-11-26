@@ -12,6 +12,7 @@ import umc7.spring.controller.response.MissionCompleteResponse;
 import umc7.spring.controller.response.MissionResponse;
 import umc7.spring.dto.MissionReqDto;
 import umc7.spring.service.mission.MissionCommandService;
+import umc7.spring.validation.annotation.CheckMission;
 import umc7.spring.validation.annotation.ExistStore;
 
 @Tag(name="Mission",description = "미션 관련 API")
@@ -40,9 +41,9 @@ public class MissionRestController {
             description = "도전하려는 미션이 도전중이 아니라면 가게의 미션을 현재 도전중인 미션으로 추가합니다."
     )
     @Parameter(name="missionId",description = "미션 Id, path variable 입니다.",example = "1")
-    @PostMapping("/{missionId}/cahllenge")
+    @PostMapping("/{missionId}/challenge")
     public ApiResponse<Object> addChallengeMission(
-            @PathVariable("missionId") Long missionId
+            @CheckMission @PathVariable("missionId") Long missionId
     ){
         Long memberId = 1L;
         return ApiResponse.onSuccess(new MissionCompleteResponse(missionCommandService.addChallenge(missionId, memberId)));
