@@ -13,11 +13,13 @@ public class ReviewResponse {
     private Long storeId;
     private String content;
     private Float score;
+    private String reviewOwner;
 
     public ReviewResponse(Review review) {
         this.id = review.getId();
         this.storeId = review.getStore().getId();
         this.content = review.getContent();
         this.score = review.getScore();
+        this.reviewOwner = review.getMember().getName();
     }
 }
