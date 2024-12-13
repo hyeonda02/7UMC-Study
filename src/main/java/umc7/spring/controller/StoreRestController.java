@@ -18,7 +18,6 @@ import umc7.spring.converter.ReviewConverter;
 import umc7.spring.dto.ReviewReqDto;
 import umc7.spring.service.review.ReviewCommandService;
 import umc7.spring.service.review.ReviewQueryService;
-import umc7.spring.service.store.StoreQueryService;
 import umc7.spring.validation.annotation.ExistStore;
 
 @Tag(name="Store",description = "상점 관련 API")

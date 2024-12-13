@@ -25,8 +25,6 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @OneToOne
-    @JoinColumn(name="store_review_id")
-    private StoreReview storeReview;
+    private Long storeReviewId;
 
 }
