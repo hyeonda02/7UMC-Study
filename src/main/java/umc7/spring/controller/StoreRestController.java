@@ -62,9 +62,9 @@ public class StoreRestController {
     @GetMapping("/{storeId}/review")
     public ApiResponse<ReviewListResponse> getReviewList(
             @PathVariable("storeId") @ExistStore Long storeId,
-            @CheckPage @RequestParam(name="page") Integer page
+            @CheckPage Integer page
     ) {
         log.info("리졸버 확인용 storeId: {}, page: {}", storeId, page);
-        return ApiResponse.onSuccess(ReviewConverter.tpReviewListResponse(reviewQueryService.getReviewList(storeId, page)));
+        return ApiResponse.onSuccess(ReviewConverter.toReviewListResponse(reviewQueryService.getReviewList(storeId, page)));
     }
 }
