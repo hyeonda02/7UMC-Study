@@ -13,11 +13,13 @@ import java.time.LocalDate;
 public class MissionResponse {
     private Long id;
     private String content;
+    private String storeName;
     private Integer reword;
     private LocalDate deadline;
 
     public MissionResponse(Mission mission) {
         this.id = mission.getId();
+        this.storeName = mission.getStore().getName();
         this.content = mission.getContent();
         this.reword = mission.getReward();
         this.deadline = mission.getDeadline();

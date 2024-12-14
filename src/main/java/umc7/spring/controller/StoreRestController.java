@@ -10,15 +10,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc7.spring.apiPayload.ApiResponse;
+import umc7.spring.controller.response.MissionListResponse;
 import umc7.spring.controller.response.ReviewListResponse;
 import umc7.spring.controller.response.ReviewResponse;
+import umc7.spring.converter.MissionConverter;
 import umc7.spring.converter.ReviewConverter;
+import umc7.spring.domain.Mission;
 import umc7.spring.dto.ReviewReqDto;
 import umc7.spring.service.review.ReviewCommandService;
 import umc7.spring.service.review.ReviewQueryService;
+import umc7.spring.service.store.StoreQueryService;
 import umc7.spring.validation.annotation.CheckPage;
 import umc7.spring.validation.annotation.ExistStore;
 
@@ -31,6 +36,7 @@ import umc7.spring.validation.annotation.ExistStore;
 public class StoreRestController {
     private final ReviewCommandService reviewCommandService;
     private final ReviewQueryService reviewQueryService;
+    private final StoreQueryService storeQueryService;
 
 
     @Operation(
@@ -66,5 +72,21 @@ public class StoreRestController {
     ) {
         log.info("리졸버 확인용 storeId: {}, page: {}", storeId, page);
         return ApiResponse.onSuccess(ReviewConverter.toReviewListResponse(reviewQueryService.getReviewList(storeId, page)));
+    }
+
+    @Operation(
+            summary = "특정 가게 미션 목록 조회하기",
+            description = "특정 가게에 미션 목록을 페이징 처리를 포함하여 조회합니다."
+    )
+    @Parameters({
+            @Parameter(name="storeId", description = "가게 Id, path variable 입니다.",example = "1"),
+            @Parameter(name = "page", description = "조회할 페이지 번호 (1부터 시작).", example = "1", required = true)
+    })
+    @GetMapping("/{storeId}/mission")
+    public ApiResponse<MissionListResponse> getMissionList(
+            @PathVariable("storeId") @ExistStore Long storeId,
+            @CheckPage Integer page
+    ) {
+        return ApiResponse.onSuccess(MissionConverter.toMissionListResponse(storeQueryService.getMissionList(storeId,page)));
     }
 }
