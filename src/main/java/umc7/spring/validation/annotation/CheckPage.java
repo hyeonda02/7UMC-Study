@@ -9,5 +9,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Parameter(hidden = true)
 public @interface CheckPage {
+    String name() default "page";
+    int defaultValue() default 0;
+    boolean required() default false;
 
 }

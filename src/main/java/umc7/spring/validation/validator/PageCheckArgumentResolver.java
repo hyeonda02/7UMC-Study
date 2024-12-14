@@ -7,6 +7,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import umc7.spring.apiPayload.code.status.ErrorStatus;
+import umc7.spring.apiPayload.exception.handler.PageHandler;
 import umc7.spring.validation.annotation.CheckPage;
 
 @Slf4j
@@ -15,7 +17,7 @@ public class PageCheckArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean isSupported =  parameter.hasParameterAnnotation(CheckPage.class);
-        log.info("호출됨"+isSupported);
+        log.info("PageCheckArgumentResolver 호출됨"+isSupported);
         return isSupported;
     }
 
@@ -24,14 +26,28 @@ public class PageCheckArgumentResolver implements HandlerMethodArgumentResolver 
                                   ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
-        log.info("resolveArgument 호출됨");
-        String pageParam = webRequest.getParameter("page");
-        if(pageParam==null||!pageParam.matches("\\d+")){
-            log.warn("올바르지 않은 값입니다. :"+pageParam);
-            return 0;
+        CheckPage annotation = parameter.getParameterAnnotation(CheckPage.class);
+        String paramName = annotation.name();
+        int defaultValue = annotation.defaultValue();
+        String paramValue = webRequest.getParameter(paramName);
+
+        if (paramValue == null) {
+            return defaultValue;
         }
-        int page = Integer.parseInt(pageParam);
-        log.info("로그 : {}", page-1 );
-        return page -1;
+        if (!isValidPage(paramValue)) {
+            new PageHandler(ErrorStatus.PAGE_BAD_REQUEST);
+        }
+
+        int page = Integer.parseInt(paramValue);
+        return page - 1;
+    }
+
+    private boolean isValidPage(String paramValue) {
+        if (!paramValue.matches("\\d+")) {
+            return false;
+        }
+        int page = Integer.parseInt(paramValue);
+        return page <= 0;
+
     }
 }
