@@ -2,6 +2,7 @@ package umc7.spring.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import umc7.spring.apiPayload.ApiResponse;
 import umc7.spring.controller.response.MissionCompleteResponse;
 import umc7.spring.controller.response.MissionResponse;
+import umc7.spring.converter.MissionConverter;
 import umc7.spring.dto.MissionReqDto;
 import umc7.spring.service.mission.MissionCommandService;
+import umc7.spring.service.mission.MissionQueryService;
 import umc7.spring.validation.annotation.CheckMission;
+import umc7.spring.validation.annotation.CheckPage;
 import umc7.spring.validation.annotation.ExistStore;
 
 @Tag(name="Mission",description = "미션 관련 API")
@@ -22,6 +26,7 @@ import umc7.spring.validation.annotation.ExistStore;
 @RequestMapping("/missions")
 public class MissionRestController {
     private final MissionCommandService missionCommandService;
+    private final MissionQueryService missionQueryService;
 
     @Operation(
             summary = "미션 만들기",
@@ -47,6 +52,22 @@ public class MissionRestController {
     ){
         Long memberId = 1L;
         return ApiResponse.onSuccess(new MissionCompleteResponse(missionCommandService.addChallenge(missionId, memberId)));
+    }
+    @Operation(
+            summary = "미션 조회하기",
+            description = "사용자가 진행중인 미션, 완료한 미션 목록들을 조회합니다."
+    )
+    @Parameters({
+            @Parameter(name="status", description = "진행중인 미션은 false, 완료한 미션은 true 값을 주세요 ",example = "true"),
+            @Parameter(name = "page", description = "조회할 페이지 번호 (1부터 시작).", example = "1")
+    })
+    @PostMapping("")
+    public ApiResponse<Object> getMissionList(
+            @RequestParam("status") Boolean status,
+            @CheckPage Integer page
+    ){
+        Long memberId = 1L;
+        return ApiResponse.onSuccess(MissionConverter.toMissionListResponse( missionQueryService.findMissionsByMemberIdAndStatus(1L, status, page)));
     }
 
 
