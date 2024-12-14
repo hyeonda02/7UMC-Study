@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc7.spring.apiPayload.ApiResponse;
@@ -18,10 +19,12 @@ import umc7.spring.converter.ReviewConverter;
 import umc7.spring.dto.ReviewReqDto;
 import umc7.spring.service.review.ReviewCommandService;
 import umc7.spring.service.review.ReviewQueryService;
+import umc7.spring.validation.annotation.CheckPage;
 import umc7.spring.validation.annotation.ExistStore;
 
 @Tag(name="Store",description = "상점 관련 API")
 @Validated
+@Slf4j
 @RestController
 @RequestMapping("/stores")
 @RequiredArgsConstructor
@@ -59,8 +62,9 @@ public class StoreRestController {
     @GetMapping("/{storeId}/review")
     public ApiResponse<ReviewListResponse> getReviewList(
             @PathVariable("storeId") @ExistStore Long storeId,
-            @RequestParam(name="page") Integer page
+            @CheckPage @RequestParam(name="page") Integer page
     ) {
+        log.info("리졸버 확인용 storeId: {}, page: {}", storeId, page);
         return ApiResponse.onSuccess(ReviewConverter.tpReviewListResponse(reviewQueryService.getReviewList(storeId, page)));
     }
 }
