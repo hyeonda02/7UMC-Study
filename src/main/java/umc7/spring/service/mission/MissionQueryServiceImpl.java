@@ -26,11 +26,9 @@ public class MissionQueryServiceImpl implements MissionQueryService {
         return missionRepository.findById(id);
     }
     @Override
-    public List<Mission> findMissionsByMemberIdAndStatus(Long memberId, Boolean status) {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("createdAt").descending());
-        Page<Mission> filterdMission = missionRepository.findByMemberWithCompleteMission(memberId,status,pageable);
-        filterdMission.forEach(mission -> System.out.println("Mission : "+mission));
-        return filterdMission.getContent();
+    public Page<Mission> findMissionsByMemberIdAndStatus(Long memberId, Boolean status, int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
+        return missionRepository.findByMemberWithCompleteMission(memberId,status,pageable);
     }
 
     @Override
