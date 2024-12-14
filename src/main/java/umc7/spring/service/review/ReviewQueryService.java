@@ -5,4 +5,5 @@ import umc7.spring.domain.Review;
 
 public interface ReviewQueryService {
     Page<Review> getReviewList(Long storeId, Integer page);
+    Page<Review> getReviewListByMemberId(Long memberId, Integer page);
 }

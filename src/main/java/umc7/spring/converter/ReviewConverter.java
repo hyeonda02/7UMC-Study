@@ -21,7 +21,7 @@ public class ReviewConverter {
                 .build();
     }
 
-    public static ReviewListResponse tpReviewListResponse(Page<Review> reviewList) {
+    public static ReviewListResponse toReviewListResponse(Page<Review> reviewList) {
         List<ReviewResponse> reviewResponse = reviewList.stream()
                 .map(ReviewResponse::new).collect(Collectors.toList());
 
